@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 2378516257056583631),
       name: 'WorkoutSplit',
-      lastPropertyId: const IdUid(3, 5093793955043558336),
+      lastPropertyId: const IdUid(5, 6804907203780314643),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -34,12 +34,40 @@ final _entities = <ModelEntity>[
             id: const IdUid(2, 4232220036963303355),
             name: 'splitName',
             type: 9,
-            flags: 2080,
-            indexId: const IdUid(1, 2415444167078954909)),
+            flags: 0),
         ModelProperty(
             id: const IdUid(3, 5093793955043558336),
             name: 'workouts',
             type: 30,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 8262004946239950482),
+            name: 'isSelected',
+            type: 1,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 6804907203780314643),
+            name: 'currentWorkoutIndex',
+            type: 6,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(2, 7518295442284721532),
+      name: 'SelectedSplit',
+      lastPropertyId: const IdUid(2, 3284126298718300637),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 2952019013800244061),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 3284126298718300637),
+            name: 'selectedSplitId',
+            type: 6,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -66,12 +94,12 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 2378516257056583631),
+      lastEntityId: const IdUid(2, 7518295442284721532),
       lastIndexId: const IdUid(1, 2415444167078954909),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
-      retiredIndexUids: const [],
+      retiredIndexUids: const [2415444167078954909],
       retiredPropertyUids: const [],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -91,10 +119,12 @@ ModelDefinition getObjectBoxModel() {
           final splitNameOffset = fbb.writeString(object.splitName);
           final workoutsOffset = fbb.writeList(
               object.workouts.map(fbb.writeString).toList(growable: false));
-          fbb.startTable(4);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, splitNameOffset);
           fbb.addOffset(2, workoutsOffset);
+          fbb.addBool(3, object.isSelected);
+          fbb.addInt64(4, object.currentWorkoutIndex);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -106,10 +136,40 @@ ModelDefinition getObjectBoxModel() {
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
               splitName: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
+              isSelected: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 10, false),
+              currentWorkoutIndex:
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0),
               workouts: const fb.ListReader<String>(
                       fb.StringReader(asciiOptimization: true),
                       lazy: false)
                   .vTableGet(buffer, rootOffset, 8, []));
+
+          return object;
+        }),
+    SelectedSplit: EntityDefinition<SelectedSplit>(
+        model: _entities[1],
+        toOneRelations: (SelectedSplit object) => [],
+        toManyRelations: (SelectedSplit object) => {},
+        getId: (SelectedSplit object) => object.id,
+        setId: (SelectedSplit object, int id) {
+          object.id = id;
+        },
+        objectToFB: (SelectedSplit object, fb.Builder fbb) {
+          fbb.startTable(3);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.selectedSplitId);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = SelectedSplit(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
+              selectedSplitId:
+                  const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
 
           return object;
         })
@@ -131,4 +191,23 @@ class WorkoutSplit_ {
   /// see [WorkoutSplit.workouts]
   static final workouts =
       QueryStringVectorProperty<WorkoutSplit>(_entities[0].properties[2]);
+
+  /// see [WorkoutSplit.isSelected]
+  static final isSelected =
+      QueryBooleanProperty<WorkoutSplit>(_entities[0].properties[3]);
+
+  /// see [WorkoutSplit.currentWorkoutIndex]
+  static final currentWorkoutIndex =
+      QueryIntegerProperty<WorkoutSplit>(_entities[0].properties[4]);
+}
+
+/// [SelectedSplit] entity fields to define ObjectBox queries.
+class SelectedSplit_ {
+  /// see [SelectedSplit.id]
+  static final id =
+      QueryIntegerProperty<SelectedSplit>(_entities[1].properties[0]);
+
+  /// see [SelectedSplit.selectedSplitId]
+  static final selectedSplitId =
+      QueryIntegerProperty<SelectedSplit>(_entities[1].properties[1]);
 }

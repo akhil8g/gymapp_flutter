@@ -1,9 +1,10 @@
+// split_page.dart
 import 'package:flutter/material.dart';
-import 'SplitData.dart';
 import 'package:objectbox/objectbox.dart';
+import 'SplitData.dart';
 
 class SplitPage extends StatefulWidget {
-  final Store store; // Store passed from main.dart
+  final Store store;
 
   SplitPage({required this.store});
 
@@ -13,13 +14,14 @@ class SplitPage extends StatefulWidget {
 
 class _SplitPageState extends State<SplitPage> {
   late final Box<WorkoutSplit> _workoutSplitBox;
+  late final Box<SelectedSplit> _selectedSplitBox;
   List<WorkoutSplit> _workoutSplits = [];
-  int _selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _workoutSplitBox = widget.store.box<WorkoutSplit>();
+    _selectedSplitBox = widget.store.box<SelectedSplit>();
     _fetchSplits();
   }
 
@@ -29,10 +31,30 @@ class _SplitPageState extends State<SplitPage> {
     });
   }
 
+  void _selectSplit(int index) {
+    setState(() {
+      for (var split in _workoutSplits) {
+        split.isSelected = false;
+        _workoutSplitBox.put(split);
+      }
+      var selectedSplit = _workoutSplits[index];
+      selectedSplit.isSelected = true;
+      selectedSplit.currentWorkoutIndex = 0; // Reset to the first workout
+      _workoutSplitBox.put(selectedSplit);
+
+      // Store selected split ID in SelectedSplit model
+      var selectedSplitModel = _selectedSplitBox.getAll().isEmpty
+          ? SelectedSplit(selectedSplitId: selectedSplit.id)
+          : _selectedSplitBox.getAll().first;
+      selectedSplitModel.selectedSplitId = selectedSplit.id;
+      _selectedSplitBox.put(selectedSplitModel);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900], // Set background color to grey 900
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -56,8 +78,8 @@ class _SplitPageState extends State<SplitPage> {
                       fit: BoxFit.cover,
                     ),
                     border: Border.all(
-                      color: Colors.orange, // Add orange outline
-                      width: 3, // Outline width
+                      color: Colors.orange,
+                      width: 3,
                     ),
                   ),
                   child: Container(
@@ -75,7 +97,7 @@ class _SplitPageState extends State<SplitPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                          _workoutSplits[_selectedIndex].splitName,
+                          _workoutSplits.firstWhere((split) => split.isSelected, orElse: () => _workoutSplits[0]).splitName,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 35,
@@ -98,15 +120,8 @@ class _SplitPageState extends State<SplitPage> {
                   ),
                   itemCount: _workoutSplits.length,
                   itemBuilder: (context, index) {
-                    if (index == _selectedIndex) {
-                      return SizedBox.shrink(); // Skip the selected item in the grid
-                    }
                     return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                      },
+                      onTap: () => _selectSplit(index),
                       child: Card(
                         color: Colors.transparent,
                         elevation: 0,
@@ -118,8 +133,8 @@ class _SplitPageState extends State<SplitPage> {
                               fit: BoxFit.cover,
                             ),
                             border: Border.all(
-                              color: Colors.orange, // Add orange outline
-                              width: 3, // Outline width
+                              color: Colors.orange,
+                              width: 3,
                             ),
                           ),
                           child: Center(

@@ -1,25 +1,39 @@
-import 'dart:convert'; // Needed for JSON encoding/decoding
+// SplitData.dart
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class WorkoutSplit {
-  int id = 0;
-
-  @Unique()
+  @Id()
+  int id;
   String splitName;
+  bool isSelected;
+  int currentWorkoutIndex;
+  List<String> workouts; // List of workout names
 
-  // Store the workouts as a JSON string internally
-  String _workoutsJson;
+  WorkoutSplit({
+    this.id = 0,
+    required this.splitName,
+    this.isSelected = false,
+    this.currentWorkoutIndex = 0,
+    this.workouts = const [],
+  });
 
-  WorkoutSplit({this.id = 0, required this.splitName, required List<String> workouts})
-      : _workoutsJson = jsonEncode(workouts);
+  void nextWorkout() {
+    if (workouts.isNotEmpty) {
+      currentWorkoutIndex = (currentWorkoutIndex + 1) % workouts.length;
+    }
+  }
 
-  // Getter to retrieve the list of workouts
-  List<String> get workouts => List<String>.from(jsonDecode(_workoutsJson));
-
-  // Setter to update the workouts list
-  set workouts(List<String> value) {
-    _workoutsJson = jsonEncode(value);
+  void skipWorkout() {
+    // Skip logic here
   }
 }
 
+@Entity()
+class SelectedSplit {
+  @Id()
+  int id;
+  int selectedSplitId;
+
+  SelectedSplit({this.id = 0, this.selectedSplitId = 0});
+}

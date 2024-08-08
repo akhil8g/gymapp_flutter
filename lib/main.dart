@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _widgetOptions = <Widget>[
-      HomePage(),
+      HomePage(store: store,),
       SplitPage(store: store), // Pass the store to SplitPage
       NewPage(store: store),
     ];

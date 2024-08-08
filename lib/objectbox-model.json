@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:2378516257056583631",
-      "lastPropertyId": "3:5093793955043558336",
+      "lastPropertyId": "5:6804907203780314643",
       "name": "WorkoutSplit",
       "properties": [
         {
@@ -17,27 +17,56 @@
         {
           "id": "2:4232220036963303355",
           "name": "splitName",
-          "type": 9,
-          "flags": 2080,
-          "indexId": "1:2415444167078954909"
+          "type": 9
         },
         {
           "id": "3:5093793955043558336",
           "name": "workouts",
           "type": 30
+        },
+        {
+          "id": "4:8262004946239950482",
+          "name": "isSelected",
+          "type": 1
+        },
+        {
+          "id": "5:6804907203780314643",
+          "name": "currentWorkoutIndex",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:7518295442284721532",
+      "lastPropertyId": "2:3284126298718300637",
+      "name": "SelectedSplit",
+      "properties": [
+        {
+          "id": "1:2952019013800244061",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3284126298718300637",
+          "name": "selectedSplitId",
+          "type": 6
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:2378516257056583631",
+  "lastEntityId": "2:7518295442284721532",
   "lastIndexId": "1:2415444167078954909",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    2415444167078954909
+  ],
   "retiredPropertyUids": [],
   "retiredRelationUids": [],
   "version": 1
