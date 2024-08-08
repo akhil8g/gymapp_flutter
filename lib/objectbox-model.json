@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:2378516257056583631",
-      "lastPropertyId": "5:6804907203780314643",
+      "lastPropertyId": "6:4878330305103099998",
       "name": "WorkoutSplit",
       "properties": [
         {
@@ -33,13 +33,18 @@
           "id": "5:6804907203780314643",
           "name": "currentWorkoutIndex",
           "type": 6
+        },
+        {
+          "id": "6:4878330305103099998",
+          "name": "imageUrl",
+          "type": 9
         }
       ],
       "relations": []
     },
     {
       "id": "2:7518295442284721532",
-      "lastPropertyId": "2:3284126298718300637",
+      "lastPropertyId": "8:4781868922226218427",
       "name": "SelectedSplit",
       "properties": [
         {
@@ -67,7 +72,14 @@
   "retiredIndexUids": [
     2415444167078954909
   ],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    7814499560584182734,
+    651965011071807556,
+    7915738431725695710,
+    7908991528025518966,
+    3062087051768930398,
+    4781868922226218427
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

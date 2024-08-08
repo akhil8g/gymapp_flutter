@@ -9,6 +9,7 @@ class WorkoutSplit {
   bool isSelected;
   int currentWorkoutIndex;
   List<String> workouts; // List of workout names
+  String imageUrl; // Image URL for the workout split
 
   WorkoutSplit({
     this.id = 0,
@@ -16,6 +17,7 @@ class WorkoutSplit {
     this.isSelected = false,
     this.currentWorkoutIndex = 0,
     this.workouts = const [],
+    this.imageUrl = '', // Default to an empty string
   });
 
   void nextWorkout() {
@@ -28,6 +30,7 @@ class WorkoutSplit {
     // Skip logic here
   }
 }
+
 
 @Entity()
 class SelectedSplit {

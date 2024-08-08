@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 2378516257056583631),
       name: 'WorkoutSplit',
-      lastPropertyId: const IdUid(5, 6804907203780314643),
+      lastPropertyId: const IdUid(6, 4878330305103099998),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -49,6 +49,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(5, 6804907203780314643),
             name: 'currentWorkoutIndex',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 4878330305103099998),
+            name: 'imageUrl',
+            type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -56,7 +61,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(2, 7518295442284721532),
       name: 'SelectedSplit',
-      lastPropertyId: const IdUid(2, 3284126298718300637),
+      lastPropertyId: const IdUid(8, 4781868922226218427),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -100,7 +105,14 @@ ModelDefinition getObjectBoxModel() {
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [2415444167078954909],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [
+        7814499560584182734,
+        651965011071807556,
+        7915738431725695710,
+        7908991528025518966,
+        3062087051768930398,
+        4781868922226218427
+      ],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -119,12 +131,14 @@ ModelDefinition getObjectBoxModel() {
           final splitNameOffset = fbb.writeString(object.splitName);
           final workoutsOffset = fbb.writeList(
               object.workouts.map(fbb.writeString).toList(growable: false));
-          fbb.startTable(6);
+          final imageUrlOffset = fbb.writeString(object.imageUrl);
+          fbb.startTable(7);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, splitNameOffset);
           fbb.addOffset(2, workoutsOffset);
           fbb.addBool(3, object.isSelected);
           fbb.addInt64(4, object.currentWorkoutIndex);
+          fbb.addOffset(5, imageUrlOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -143,7 +157,9 @@ ModelDefinition getObjectBoxModel() {
               workouts: const fb.ListReader<String>(
                       fb.StringReader(asciiOptimization: true),
                       lazy: false)
-                  .vTableGet(buffer, rootOffset, 8, []));
+                  .vTableGet(buffer, rootOffset, 8, []),
+              imageUrl: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 14, ''));
 
           return object;
         }),
@@ -156,7 +172,7 @@ ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (SelectedSplit object, fb.Builder fbb) {
-          fbb.startTable(3);
+          fbb.startTable(9);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.selectedSplitId);
           fbb.finish(fbb.endTable());
@@ -199,6 +215,10 @@ class WorkoutSplit_ {
   /// see [WorkoutSplit.currentWorkoutIndex]
   static final currentWorkoutIndex =
       QueryIntegerProperty<WorkoutSplit>(_entities[0].properties[4]);
+
+  /// see [WorkoutSplit.imageUrl]
+  static final imageUrl =
+      QueryStringProperty<WorkoutSplit>(_entities[0].properties[5]);
 }
 
 /// [SelectedSplit] entity fields to define ObjectBox queries.
