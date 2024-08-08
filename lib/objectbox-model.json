@@ -1,0 +1,44 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2378516257056583631",
+      "lastPropertyId": "3:5093793955043558336",
+      "name": "WorkoutSplit",
+      "properties": [
+        {
+          "id": "1:5529114887189541268",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4232220036963303355",
+          "name": "splitName",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "1:2415444167078954909"
+        },
+        {
+          "id": "3:5093793955043558336",
+          "name": "workouts",
+          "type": 30
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:2378516257056583631",
+  "lastIndexId": "1:2415444167078954909",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
