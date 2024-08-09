@@ -81,7 +81,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   void _nextDay() {
     if (_selectedSplit != null) {
-      _onButtonPressed('https://cdn-icons-png.flaticon.com/512/2376/2376428.png');  // Show the "Done" image
+      _onButtonPressed('https://i.ibb.co/F46H32D/Whats-App-Image-2024-08-09-at-9-45-45-AM-removebg-preview-2.png');
+      //https://cdn-icons-png.flaticon.com/512/2376/2376428.png// Show the "Done" image
       setState(() {
         _selectedSplit!.nextWorkout();
         _workoutSplitBox.put(_selectedSplit!);
@@ -93,7 +94,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   void _skipDay() {
     if (_selectedSplit != null) {
-      _onButtonPressed('https://cdn-icons-png.flaticon.com/512/9305/9305700.png');  // Show the "Skip" image
+      _onButtonPressed("https://i.imghippo.com/files/B6tAI1723177779.png");
+    //https://cdn-icons-png.flaticon.com/512/9305/9305700.png// Show the "Skip" image
       // Add skip logic here if needed
     }
   }
@@ -179,14 +181,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeInOut,
-            bottom: _showImage ? 20.0 : -150.0, // Position relative to the bottom
+            bottom: _showImage ? 20.0 : -200.0, // Position relative to the bottom
             left: 0,
             right: 0,
             child: Center(
               child: Image.network(
                 _imageUrl, // Show the selected image
-                width: 100,
-                height: 100,
+                width: 200,
+                height: 200,
               ),
             ),
           ),

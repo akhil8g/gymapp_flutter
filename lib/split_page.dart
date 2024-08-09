@@ -183,22 +183,22 @@ class _SplitPageState extends State<SplitPage> {
                         ? _workoutSplits[index].imageUrl
                         : defaultImageUrl;
 
-                    return GestureDetector(
-                      onTap: () => _selectSplit(index),
-                      onLongPress: () => _showDeleteConfirmationDialog(index), // Handle long press
-                      child: Card(
-                        color: Colors.transparent,
-                        elevation: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: NetworkImage(splitImageUrl),
-                              fit: BoxFit.cover,
-                            ),
-                            border: Border.all(
-                              color: Colors.orange,
-                              width: 3,
+                      return GestureDetector(
+                        onTap: () => _selectSplit(index),
+                        onLongPress: () => _showDeleteConfirmationDialog(index), // Handle long press
+                        child: Card(
+                          color: Colors.transparent,
+                          elevation: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image: NetworkImage(splitImageUrl),
+                                fit: BoxFit.cover,
+                              ),
+                              border: Border.all(
+                                color: Colors.orange,
+                                width: 3,
                             ),
                           ),
                           child: Center(
